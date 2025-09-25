@@ -2,6 +2,7 @@
 
 *24/09/2025*
 
+VERSIÓ 1.0.1
 **Descripció del codi:**
 Script principal per a:
 1. Carregar i visualitzar una imatge TIF.
