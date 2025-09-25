@@ -19,7 +19,7 @@ def main():
 
     # Calcular NDWI (experimental, usando Red como NIR falso)
     ndwi = compute_ndwi(green, red)
-    show_image(ndwi, title="NDWI (Verd vs Vermell)", cmap="RdYlBu")
+    show_image(ndwi, title="NDWI (Verd vs NIR)", cmap="RdYlBu")
 
 if __name__ == "__main__":
     main()
