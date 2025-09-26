@@ -4,7 +4,7 @@ from src.indices import compute_ndwi
 
 def main():
     # Cargar imagen TIFF RGB (cambia el nombre del archivo si es distinto)
-    path_imagen = "data/2025-09-23-00_00_2025-09-23-23_59_Sentinel-2_L2A_True_color.tiff"
+    path_imagen = "data/2025-09-21-00_00_2025-09-21-23_59_Sentinel-2_L2A_True_color.tiff"
 
     with rasterio.open(path_imagen) as src:
         # En un TIFF RGB típico: banda 1=Red, 2=Green, 3=Blue
