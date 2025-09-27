@@ -1,0 +1,83 @@
+2025-09-27 10:53:02 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "intersects": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          1.9480125928454868,
+          41.26662048396008
+        ],
+        [
+          1.9480125928454868,
+          41.261321789426034
+        ],
+        [
+          2.003631574495671,
+          41.261321789426034
+        ],
+        [
+          2.003631574495671,
+          41.26662048396008
+        ],
+        [
+          1.9480125928454868,
+          41.26662048396008
+        ]
+      ]
+    ]
+  },
+  "datetime": "2025-01-01T00:00:00Z/2025-07-01T23:59:59Z",
+  "limit": 20
+}
+2025-09-27 10:53:03 [INFO] main - S'han trobat 20 imatges
+2025-09-27 10:53:03 [INFO] main - S'han seleccionat 1 imatges
+2025-09-27 10:53:03 [INFO] main - Processant imatge del 2025-06-30
+2025-09-27 10:55:49 [INFO] main - S'han trobat 20 imatges
+2025-09-27 10:55:49 [INFO] main - S'han seleccionat 1 imatges
+2025-09-27 11:09:14 [INFO] main - S'han trobat 20 imatges
+2025-09-27 11:09:14 [INFO] main - S'han seleccionat 1 imatges
+2025-09-27 11:09:14 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_red.tif
+2025-09-27 11:09:14 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_green.tif
+2025-09-27 11:09:14 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_blue.tif
+2025-09-27 11:09:14 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_nir.tif
+2025-09-27 11:09:14 [INFO] main - Processant imatge del 2025-07-01
+2025-09-27 11:09:14 [ERROR] main - Fitxer corrupte data/sentinel2\2025-07-01_red.tif: Read failed. See previous exception for details.
+2025-09-27 11:09:15 [ERROR] main - Fitxer corrupte data/sentinel2\2025-07-01_green.tif: Read failed. See previous exception for details.
+2025-09-27 11:09:16 [ERROR] main - Fitxer corrupte data/sentinel2\2025-07-01_blue.tif: Read failed. See previous exception for details.
+2025-09-27 11:09:16 [ERROR] main - Fitxer corrupte data/sentinel2\2025-07-01_nir.tif: Read failed. See previous exception for details.
+2025-09-27 11:09:16 [WARNING] main - Imatge 2025-07-01 incompleta o corrupta, es salta.
+2025-09-27 11:09:39 [INFO] main - S'han trobat 20 imatges
+2025-09-27 11:09:39 [INFO] main - S'han seleccionat 1 imatges
+2025-09-27 11:15:48 [INFO] main - S'han trobat 20 imatges
+2025-09-27 11:15:48 [INFO] main - S'han seleccionat 1 imatges
+2025-09-27 11:16:10 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_blue.tif
+2025-09-27 11:16:11 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_nir.tif
+2025-09-27 11:16:12 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_green.tif
+2025-09-27 11:16:14 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_red.tif
+2025-09-27 11:16:14 [INFO] main - Processant imatge del 2025-07-01
+2025-09-27 11:17:50 [INFO] main - S'han trobat 20 imatges
+2025-09-27 11:17:50 [INFO] main - S'han seleccionat 1 imatges
+2025-09-27 11:18:07 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_red.tif
+2025-09-27 11:18:09 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_nir.tif
+2025-09-27 11:18:18 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_green.tif
+2025-09-27 11:18:26 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_blue.tif
+2025-09-27 11:18:26 [INFO] main - Processant imatge del 2025-07-01
+2025-09-27 11:36:18 [INFO] main - S'han trobat 20 imatges
+2025-09-27 11:36:18 [INFO] main - S'han seleccionat 3 imatges
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_red.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_green.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_blue.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_nir.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_red.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_green.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_blue.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_nir.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_green.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_red.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_blue.tif
+2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_nir.tif
+2025-09-27 11:36:18 [INFO] main - Processant imatge del 2025-07-01
+2025-09-27 11:39:35 [INFO] main - Processant imatge del 2025-07-01
