@@ -81,3 +81,131 @@
 2025-09-27 11:36:18 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2025-07-01_nir.tif
 2025-09-27 11:36:18 [INFO] main - Processant imatge del 2025-07-01
 2025-09-27 11:39:35 [INFO] main - Processant imatge del 2025-07-01
+2025-09-27 12:10:01 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "geometry": {
+    "coordinates": [
+      [
+        [
+          1.9480125928454868,
+          41.26662048396008
+        ],
+        [
+          1.9480125928454868,
+          41.261321789426034
+        ],
+        [
+          2.003631574495671,
+          41.261321789426034
+        ],
+        [
+          2.003631574495671,
+          41.26662048396008
+        ],
+        [
+          1.9480125928454868,
+          41.26662048396008
+        ]
+      ]
+    ],
+    "type": "Polygon"
+  },
+  "datetime": "2025-01-01T00:00:00Z/2025-07-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 20
+    }
+  }
+}
+2025-09-27 12:10:02 [INFO] main - S'han trobat 20 imatges
+2025-09-27 12:10:02 [INFO] main - S'han seleccionat 3 imatges
+2025-09-27 12:10:43 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "geometry": {
+    "coordinates": [
+      [
+        [
+          1.9480125928454868,
+          41.26662048396008
+        ],
+        [
+          1.9480125928454868,
+          41.261321789426034
+        ],
+        [
+          2.003631574495671,
+          41.261321789426034
+        ],
+        [
+          2.003631574495671,
+          41.26662048396008
+        ],
+        [
+          1.9480125928454868,
+          41.26662048396008
+        ]
+      ]
+    ],
+    "type": "Polygon"
+  },
+  "datetime": "2025-01-01T00:00:00Z/2025-07-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 20
+    }
+  }
+}
+2025-09-27 12:10:44 [INFO] main - S'han trobat 20 imatges
+2025-09-27 12:10:44 [INFO] main - S'han seleccionat 3 imatges
+2025-09-27 12:11:11 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "geometry": {
+    "coordinates": [
+      [
+        [
+          1.9480125928454868,
+          41.26662048396008
+        ],
+        [
+          1.9480125928454868,
+          41.261321789426034
+        ],
+        [
+          2.003631574495671,
+          41.261321789426034
+        ],
+        [
+          2.003631574495671,
+          41.26662048396008
+        ],
+        [
+          1.9480125928454868,
+          41.26662048396008
+        ]
+      ]
+    ],
+    "type": "Polygon"
+  },
+  "datetime": "2025-01-01T00:00:00Z/2025-07-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 20
+    }
+  }
+}
+2025-09-27 12:11:12 [INFO] main - S'han trobat 20 imatges
+2025-09-27 12:11:12 [INFO] main - S'han seleccionat 1 imatges
+2025-09-27 12:11:44 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_green.tif
+2025-09-27 12:11:51 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_red.tif
+2025-09-27 12:11:53 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_blue.tif
+2025-09-27 12:12:01 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2025-07-01_nir.tif
+2025-09-27 12:12:01 [INFO] main - Processant imatge del 2025-07-01

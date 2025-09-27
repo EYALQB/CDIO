@@ -13,10 +13,14 @@ logger = get_logger(__name__)
 
 STAC_API_URL = "https://earth-search.aws.element84.com/v1"
 
+
 # ----------------------------------------------------------------------
 # 1. Carregar AOI
 # ----------------------------------------------------------------------
 def load_aoi(filepath: str) -> Dict:
+    """
+    Carrega un fitxer GeoJSON amb la geometria AOI.
+    """
     with open(filepath, "r", encoding="utf-8") as f:
         aoi = json.load(f)
     return aoi
@@ -25,10 +29,24 @@ def load_aoi(filepath: str) -> Dict:
 # ----------------------------------------------------------------------
 # 2. Query STAC
 # ----------------------------------------------------------------------
-def query_stac(aoi: Dict, start_date: str, end_date: str, limit: int = 10, max_cloud: int =20) -> List[Dict]:
+def query_stac(
+    aoi: Dict,
+    start_date: str,
+    end_date: str,
+    limit: int = 10,
+    max_cloud: int = 20
+) -> List[Dict]:
+    """
+    Fa una query a la STAC API i retorna una llista d'items disponibles.
+
+    :param aoi: AOI en format GeoJSON
+    :param start_date: Data inicial (YYYY-MM-DD)
+    :param end_date: Data final (YYYY-MM-DD)
+    :param limit: Nombre màxim d'items a retornar
+    :param max_cloud: Percentatge màxim de núvols permès
+    """
     search_url = f"{STAC_API_URL}/search"
     geometry = aoi["features"][0]["geometry"]
-    
 
     params = {
         "collections": ["sentinel-2-l2a"],
@@ -40,19 +58,25 @@ def query_stac(aoi: Dict, start_date: str, end_date: str, limit: int = 10, max_c
         }
     }
 
+    logger.debug(f"Query STAC params: {json.dumps(params, indent=2)}")
+
     response = requests.post(search_url, json=params)
     response.raise_for_status()
     data = response.json()
-    return data.get("features", [])
 
-    
-
+    features = data.get("features", [])
+    if not features:
+        logger.warning("No s'han trobat imatges amb els criteris donats.")
+    return features
 
 
 # ----------------------------------------------------------------------
 # 3. Selecció d'items
 # ----------------------------------------------------------------------
 def select_items(items: List[Dict], n: int) -> List[Dict]:
+    """
+    Selecciona els primers N items de la llista.
+    """
     return items[:n]
 
 
@@ -62,6 +86,11 @@ def select_items(items: List[Dict], n: int) -> List[Dict]:
 def download_asset(url: str, out_path: str, retries: int = 3, min_size: int = 10000) -> None:
     """
     Descarrega un únic asset (fitxer .tif) amb reintents i validació de mida.
+
+    :param url: URL de l'asset
+    :param out_path: Ruta de sortida
+    :param retries: Nombre de reintents si falla la descàrrega
+    :param min_size: Mida mínima del fitxer en bytes per considerar-lo vàlid
     """
     if os.path.exists(out_path) and os.path.getsize(out_path) >= min_size:
         logger.info(f"Ja existeix, es salta: {out_path}")
@@ -94,6 +123,9 @@ def download_asset(url: str, out_path: str, retries: int = 3, min_size: int = 10
 # 5. Descarregar diversos items en paral·lel
 # ----------------------------------------------------------------------
 def download_images_multithread(items: List[Dict], out_dir: str, max_workers: int = 5) -> None:
+    """
+    Descarrega les bandes red, green, blue i nir de múltiples items en paral·lel.
+    """
     os.makedirs(out_dir, exist_ok=True)
     tasks = []
 

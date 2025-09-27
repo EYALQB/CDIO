@@ -2,3 +2,5 @@ numpy
 matplotlib
 pytest
 rasterio
+requests
+pyyaml

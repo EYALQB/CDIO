@@ -1,1 +1,9 @@
-data/
+
+.venv/
+__pycache__/
+*.pyc
+
+.tif
+*.tiff
+jp2
+.aux.xml

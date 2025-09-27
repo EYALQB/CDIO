@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib
+matplotlib.use("TkAgg")  # o "Qt5Agg" si tens Qt
+
 
 def show_image(image: np.ndarray, title: str = "Image", cmap: str = "gray"):
     """
