@@ -2,3 +2,7 @@ numpy
 matplotlib
 pytest
 rasterio
+pystac-client  
+shapely 
+geopandas 
+requests
