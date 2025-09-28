@@ -9,3 +9,5 @@ Script principal per a:
 2. Extreure canals vermell, verd i blau.
 3. Calcular un NDWI experimental (utilitzant Green i Red com a substitut del NIR).
 
+*24/09/2025*
+Codi setmana 3 sense multithread.
