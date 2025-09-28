@@ -28,9 +28,9 @@
 
 ### 🔹 Procés bàsic (Windows)
 1. Activar l’entorn virtual:
-   ```bash
+  ```bash
    .venv\Scripts\activate
-   ````
+  ````
 2. Actualitzar el codi:
   ```bash
   git pull origin main
