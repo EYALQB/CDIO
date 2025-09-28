@@ -16,23 +16,29 @@
 1. Activar l’entorn virtual:
    ```bash
    source .venv/bin/activate
+   ````
 2. Actualitzar el codi:
   ```bash
   git pull origin main
+  ````
 3. Executar el main
   ```bash
   python main.py
+  ````
 
 ### 🔹 Procés bàsic (Windows)
 1. Activar l’entorn virtual:
    ```bash
    .venv\Scripts\activate
+   ````
 2. Actualitzar el codi:
   ```bash
   git pull origin main
+  ````
 3. Executar el main
   ```bash
   python main.py
+  ````
 
 ### 🔹 Notes
  - No pujar dades grans: la carpeta data/sentinel2/ ha d'estar buida abans de penjar-se al git.
@@ -41,4 +47,4 @@
  git add -A
  git commit -m "Missatge clar del canvi"
  git push origin main
-
+````
