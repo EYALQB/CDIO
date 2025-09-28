@@ -7,6 +7,7 @@ import os
 import requests
 from typing import List, Dict
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import geopandas as gpd
 
 from src.utils.logger import get_logger
 logger = get_logger(__name__)
@@ -17,14 +18,22 @@ STAC_API_URL = "https://earth-search.aws.element84.com/v1"
 # ----------------------------------------------------------------------
 # 1. Carregar AOI
 # ----------------------------------------------------------------------
-def load_aoi(filepath: str) -> Dict:
-    """
-    Carrega un fitxer GeoJSON amb la geometria AOI.
-    """
-    with open(filepath, "r", encoding="utf-8") as f:
-        aoi = json.load(f)
-    return aoi
+import geopandas as gpd
 
+def load_aoi(aoi_file: str) -> dict:
+    """
+    Carrega un AOI des d'un fitxer .geojson i l'assegura en EPSG:4326 (lat/lon).
+
+    :param aoi_file: Path al fitxer .geojson
+    :return: AOI en format GeoJSON (dict) amb CRS EPSG:4326
+    """
+    gdf = gpd.read_file(aoi_file)
+
+    # Si el CRS no és 4326, el convertim
+    if gdf.crs is None or gdf.crs.to_epsg() != 4326:
+        gdf = gdf.to_crs(4326)
+
+    return gdf.__geo_interface__
 
 # ----------------------------------------------------------------------
 # 2. Query STAC
@@ -46,11 +55,15 @@ def query_stac(
     :param max_cloud: Percentatge màxim de núvols permès
     """
     search_url = f"{STAC_API_URL}/search"
-    geometry = aoi["features"][0]["geometry"]
+
+    # Calculem el bounding box del AOI en EPSG:4326
+    import geopandas as gpd
+    gdf = gpd.GeoDataFrame.from_features(aoi["features"], crs="EPSG:4326")
+    minx, miny, maxx, maxy = gdf.total_bounds
 
     params = {
         "collections": ["sentinel-2-l2a"],
-        "geometry": geometry,
+        "bbox": [minx, miny, maxx, maxy],
         "datetime": f"{start_date}T00:00:00Z/{end_date}T23:59:59Z",
         "limit": limit,
         "query": {

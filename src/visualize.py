@@ -1,22 +1,22 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import matplotlib
-matplotlib.use("TkAgg")  # o "Qt5Agg" si tens Qt
 
+def normalize_band(band, reflectance_scale=10000.0, clip_pct=(2, 98)):
+    """Normalitza una banda Sentinel-2 per visualització RGB."""
+    # Escalar reflectància
+    band = band / reflectance_scale
+
+    # Percentils per retallar valors extrems
+    low, high = np.percentile(band, clip_pct)
+    if high <= low:
+        return np.clip(band, 0, 1)
+
+    # Retallar i escalar
+    band = np.clip(band, low, high)
+    return (band - low) / (high - low)
 
 def show_image(image: np.ndarray, title: str = "Image", cmap: str = "gray"):
-    """
-    Visualiza una imagen 2D con Matplotlib.
-
-    Parameters
-    ----------
-    image : np.ndarray
-        Imagen a mostrar.
-    title : str
-        Título del gráfico.
-    cmap : str
-        Paleta de colores.
-    """
+    """Mostra una sola banda o índex amb colorbar."""
     plt.figure(figsize=(6, 6))
     plt.imshow(image, cmap=cmap)
     plt.title(title)
@@ -24,4 +24,17 @@ def show_image(image: np.ndarray, title: str = "Image", cmap: str = "gray"):
     plt.axis("off")
     plt.tight_layout()
     plt.show()
-    
+
+def show_rgb(r: np.ndarray, g: np.ndarray, b: np.ndarray, title: str = "Composició RGB (True Color)"):
+    """Mostra composició RGB a partir de bandes R, G, B normalitzades."""
+    rn = normalize_band(r)
+    gn = normalize_band(g)
+    bn = normalize_band(b)
+    rgb = np.dstack([rn, gn, bn])
+
+    plt.figure(figsize=(6, 6))
+    plt.imshow(rgb)
+    plt.title(title)
+    plt.axis("off")
+    plt.tight_layout()
+    plt.show()

@@ -1,15 +1,27 @@
-import os 
+import os
 import yaml
 import rasterio
 import numpy as np
 import matplotlib.pyplot as plt
+import geopandas as gpd
+from rasterio.mask import mask
 
-from src.visualize import show_image
+from src.visualize import show_image, show_rgb
 from src.indices import compute_ndwi
 from src.stac_download import load_aoi, query_stac, select_items, download_images_multithread
 from src.utils.logger import get_logger
 
 logger = get_logger("main")
+
+def clip_to_aoi(band_path, aoi_file):
+    """Retalla una banda Sentinel-2 al AOI donat (geojson), amb reprojecció."""
+    with rasterio.open(band_path) as src:
+        # Llegim AOI i el convertim al CRS del raster
+        aoi = gpd.read_file(aoi_file)
+        aoi = aoi.to_crs(src.crs)
+
+        out_image, out_transform = mask(src, aoi.geometry, crop=True)
+    return out_image[0]
 
 def main():
     # 0. Carregar configuració des de config.yaml
@@ -53,7 +65,7 @@ def main():
             "nir": os.path.join(out_dir, f"{date}_nir.tif"),
         }
 
-        # Llegir bandes amb validació
+        # Llegir bandes amb validació i retallar al AOI
         bands = {}
         for name, path in band_paths.items():
             if not os.path.exists(path):
@@ -62,11 +74,9 @@ def main():
                 continue
 
             try:
-                with rasterio.open(path) as src:
-                    _ = src.meta  # comprovem que obre
-                    bands[name] = src.read(1).astype("float32")
+                bands[name] = clip_to_aoi(path, config["aoi_file"]).astype("float32")
             except Exception as e:
-                logger.error(f"Fitxer corrupte {path}: {e}")
+                logger.error(f"Error retallant {name.upper()} ({path}): {e}")
                 bands[name] = None
 
         if any(band is None for band in bands.values()):
@@ -75,18 +85,21 @@ def main():
 
         red, green, blue, nir = bands["red"], bands["green"], bands["blue"], bands["nir"]
 
+        # Debug opcional
+        for name, arr in bands.items():
+            if arr is not None:
+                print(
+                    f"{date} - {name.upper()} -> shape={arr.shape}, "
+                    f"min={arr.min()}, max={arr.max()}, mean={arr.mean()}"
+                )
+
         # Visualització de bandes individuals
         show_image(red,   title=f"{date} - Banda Vermella (RED)", cmap="Reds")
         show_image(green, title=f"{date} - Banda Verda (GREEN)",  cmap="Greens")
         show_image(blue,  title=f"{date} - Banda Blava (BLUE)",   cmap="Blues")
 
         # Composició RGB
-        rgb = np.dstack([red, green, blue])
-        rgb_norm = (rgb - rgb.min()) / (rgb.max() - rgb.min())
-        plt.imshow(rgb_norm)
-        plt.title(f"{date} - Composició RGB (True Color)")
-        plt.axis("off")
-        plt.show()
+        show_rgb(red, green, blue, title=f"{date} - Composició RGB (True Color)")
 
         # NDWI
         ndwi = compute_ndwi(green, nir)
