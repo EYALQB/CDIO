@@ -29,7 +29,7 @@
 ### 🔹 Procés bàsic (Windows)
 1. Activar l’entorn virtual:
   ```bash
-   .venv\Scripts\activate
+  .venv\Scripts\activate
   ````
 2. Actualitzar el codi:
   ```bash
