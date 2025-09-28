@@ -10,22 +10,35 @@
 6. Configurable mitjançant **`config.yaml`**.  
 7. Logs centralitzats amb un sistema robust de detecció i gestió d’errors.  
 
----
+## 📝 Recordatori d’ús per l’equip
 
-## ⚙️ Estructura del projecte
-│── data/ # Carpeta per guardar imatges descarregades i AOIs
-│ └── aoi_castelldefels.geojson
-│
-│── src/
-│ ├── indices.py # Càlcul NDWI
-│ ├── visualize.py # Funcions de visualització
-│ ├── stac_download.py # Query i descàrrega d’imatges Sentinel-2
-│ └── utils/
-│ └── logger.py # Sistema de logs
-│
-│── config.yaml # Configuració general
-│── main.py # Script principal
-│── CHANGELOG.md # Històric de canvis setmanals
+### 🔹 Procés bàsic (Linux/Mac)
+1. Activar l’entorn virtual:
+   ```bash
+   source .venv/bin/activate
+2. Actualitzar el codi:
+  ```bash
+  git pull origin main
+3. Executar el main
+  ```bash
+  python main.py
 
+### 🔹 Procés bàsic (Windows)
+1. Activar l’entorn virtual:
+   ```bash
+   .venv\Scripts\activate
+2. Actualitzar el codi:
+  ```bash
+  git pull origin main
+3. Executar el main
+  ```bash
+  python main.py
 
----
+### 🔹 Notes
+ - No pujar dades grans: la carpeta data/sentinel2/ ha d'estar buida abans de penjar-se al git.
+ - Si afegeixes canvis de codi:
+ ```bash
+ git add -A
+ git commit -m "Missatge clar del canvi"
+ git push origin main
+
