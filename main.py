@@ -85,14 +85,6 @@ def main():
 
         red, green, blue, nir = bands["red"], bands["green"], bands["blue"], bands["nir"]
 
-        # Debug opcional
-        for name, arr in bands.items():
-            if arr is not None:
-                print(
-                    f"{date} - {name.upper()} -> shape={arr.shape}, "
-                    f"min={arr.min()}, max={arr.max()}, mean={arr.mean()}"
-                )
-
         # Visualització de bandes individuals
         show_image(red,   title=f"{date} - Banda Vermella (RED)", cmap="Reds")
         show_image(green, title=f"{date} - Banda Verda (GREEN)",  cmap="Greens")
