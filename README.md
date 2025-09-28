@@ -48,3 +48,6 @@
  git commit -m "Missatge clar del canvi"
  git push origin main
 ````
+
+📖 Consulta també el [CHANGELOG](CHANGELOG.md) per veure l’històric de canvis.
+
