@@ -1,9 +1,28 @@
-
+# --- Entorns virtuals ---
+venv/
 .venv/
+
+# --- Configuració d'IDE ---
+.idea/
+.vscode/
+
+# --- Fitxers temporals de Python ---
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
-.tif
-*.tiff
-jp2
-.aux.xml
+# --- Logs ---
+logs/
+
+# --- Dades grans (només mantenim l'AOI) ---
+data/*
+!data/aoi_castelldefels.geojson
+
+# --- Fitxers binaris de satèl·lit ---
+*.tif
+*.jp2
+
+# --- Altres fitxers temporals ---
+*.log
+*.tmp
