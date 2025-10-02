@@ -10,7 +10,7 @@
 6. Configurable mitjançant **`config.yaml`**.  
 7. Logs centralitzats amb un sistema robust de detecció i gestió d’errors.  
 
-## 📝 Recordatori d’ús per l’equip
+## Recordatori d’ús
 
 ### 🔹 Procés bàsic (Linux/Mac)
 1. Activar l’entorn virtual:
