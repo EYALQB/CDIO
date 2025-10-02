@@ -1,5 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.colors as mcolors
+
+
+water_cmap = mcolors.ListedColormap(["saddlebrown", "blue"])
 
 def normalize_band(band, reflectance_scale=10000.0, clip_pct=(2, 98)):
     """Normalitza una banda Sentinel-2 per visualització RGB."""

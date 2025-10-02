@@ -33,3 +33,11 @@ def compute_ndwi(green_band: np.ndarray, nir_band: np.ndarray) -> np.ndarray:
     ndwi[mask_nan] = np.nan
 
     return ndwi
+
+def detect_waterbody(ndwi_array: np.ndarray, threshold: float = 0.0) -> np.ndarray:
+    """
+    Converteix NDWI en mapa binari aigua/terra.
+    - 1 = aigua (NDWI > threshold)
+    - 0 = terra (NDWI <= threshold)
+    """
+    return (ndwi_array > threshold).astype(np.uint8)

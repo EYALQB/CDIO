@@ -1,15 +1,21 @@
 import os
 import yaml
 import rasterio
-import numpy as np
-import matplotlib.pyplot as plt
 import geopandas as gpd
 from rasterio.mask import mask
 
 from src.visualize import show_image, show_rgb
-from src.indices import compute_ndwi
+from src.indices import compute_ndwi, detect_waterbody
 from src.stac_download import load_aoi, query_stac, select_items, download_images_multithread
 from src.utils.logger import get_logger
+import matplotlib.colors as mcolors
+from src.utils.save_geotiff import save_geotiff
+
+
+nigga = 'black'
+
+water_cmap = mcolors.ListedColormap([nigga, "blue"])
+
 
 logger = get_logger("main")
 
@@ -96,6 +102,13 @@ def main():
         # NDWI
         ndwi = compute_ndwi(green, nir)
         show_image(ndwi, title=f"{date} - NDWI (Verd vs NIR)", cmap="RdYlBu")
+
+        waterbody = detect_waterbody(ndwi)
+        show_image(waterbody, title=f"{date} - Waterbody (Aigua en blau, Terra en negre)", cmap=water_cmap)
+        output_path = os.path.join(out_dir, f"{date}_waterbody.tif")
+        save_geotiff(output_path, waterbody, transform, crs)
+        logger.info(f"Waterbody guardat a {output_path}")
+
 
 
 if __name__ == "__main__":
