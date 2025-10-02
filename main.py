@@ -10,14 +10,13 @@ from src.stac_download import load_aoi, query_stac, select_items, download_image
 from src.utils.logger import get_logger
 import matplotlib.colors as mcolors
 from src.utils.save_geotiff import save_geotiff
+import numpy as np
 
-
-nigga = 'black'
-
-water_cmap = mcolors.ListedColormap([nigga, "blue"])
-
+# Colormap personalitzat: terra negre, aigua blau
+water_cmap = mcolors.ListedColormap(["black", "blue"])
 
 logger = get_logger("main")
+
 
 def clip_to_aoi(band_path, aoi_file):
     """Retalla una banda Sentinel-2 al AOI donat (geojson), amb reprojecció."""
@@ -26,8 +25,11 @@ def clip_to_aoi(band_path, aoi_file):
         aoi = gpd.read_file(aoi_file)
         aoi = aoi.to_crs(src.crs)
 
-        out_image, out_transform = mask(src, aoi.geometry, crop=True)
-    return out_image[0]
+        # Retalla com a masked array (fora AOI = màscara)
+        out_image, out_transform = mask(src, aoi.geometry, crop=True, filled=False)
+
+    return out_image[0].data, out_transform, src.crs, out_image[0].mask
+
 
 def main():
     # 0. Carregar configuració des de config.yaml
@@ -80,7 +82,7 @@ def main():
                 continue
 
             try:
-                bands[name] = clip_to_aoi(path, config["aoi_file"]).astype("float32")
+                bands[name], transform, crs, mask_array = clip_to_aoi(path, config["aoi_file"])
             except Exception as e:
                 logger.error(f"Error retallant {name.upper()} ({path}): {e}")
                 bands[name] = None
@@ -103,12 +105,19 @@ def main():
         ndwi = compute_ndwi(green, nir)
         show_image(ndwi, title=f"{date} - NDWI (Verd vs NIR)", cmap="RdYlBu")
 
-        waterbody = detect_waterbody(ndwi)
+        # Waterbody (0/1 → passem a float per poder posar NaN)
+        waterbody = detect_waterbody(ndwi).astype("float32")
+
+        # Fora AOI = NaN → es veurà transparent
+        waterbody[mask_array] = np.nan
+
+        # Visualització
         show_image(waterbody, title=f"{date} - Waterbody (Aigua en blau, Terra en negre)", cmap=water_cmap)
+
+        # Guardar GeoTIFF amb nodata = NaN
         output_path = os.path.join(out_dir, f"{date}_waterbody.tif")
         save_geotiff(output_path, waterbody, transform, crs)
         logger.info(f"Waterbody guardat a {output_path}")
-
 
 
 if __name__ == "__main__":

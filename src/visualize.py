@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.colors as mcolors
 
 
-water_cmap = mcolors.ListedColormap(["saddlebrown", "blue"])
+
 
 def normalize_band(band, reflectance_scale=10000.0, clip_pct=(2, 98)):
     """Normalitza una banda Sentinel-2 per visualització RGB."""
@@ -42,3 +42,14 @@ def show_rgb(r: np.ndarray, g: np.ndarray, b: np.ndarray, title: str = "Composic
     plt.axis("off")
     plt.tight_layout()
     plt.show()
+
+def show_waterbody(array, title="Waterbody (terra/aigua)"):
+    plt.figure(figsize=(6, 6))
+    plt.imshow(array, cmap=water_cmap)
+    plt.title(title)
+    plt.axis("off")
+    plt.tight_layout()
+    plt.show()
+
+nigga = 'black'
+water_cmap = mcolors.ListedColormap([nigga, "blue"])

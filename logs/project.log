@@ -1,0 +1,262 @@
+2025-10-02 16:05:33 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:05:34 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:05:34 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:06:11 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:06:12 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:06:16 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:06:49 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:06:49 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:14:32 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:14:34 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:14:34 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:14:34 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:14:34 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:14:34 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:14:34 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:14:34 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:14:44 [INFO] main - Waterbody guardat a data/sentinel2\2024-08-24_waterbody.tif
+2025-10-02 16:25:27 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:25:28 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:25:28 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:25:28 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:25:28 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:25:28 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:25:28 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:25:28 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:27:40 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:27:41 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:27:41 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:27:41 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:27:41 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:27:41 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:27:41 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:27:41 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:28:03 [INFO] main - Waterbody guardat a data/sentinel2\2024-08-24_waterbody.tif
+2025-10-02 16:35:25 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:35:27 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:35:27 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:35:27 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:35:27 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:35:27 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:35:27 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:35:27 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:35:27 [ERROR] main - Error retallant RED (data/sentinel2\2024-08-24_red.tif): 'numpy.ndarray' object has no attribute 'mask'
+2025-10-02 16:35:27 [ERROR] main - Error retallant GREEN (data/sentinel2\2024-08-24_green.tif): 'numpy.ndarray' object has no attribute 'mask'
+2025-10-02 16:35:27 [ERROR] main - Error retallant BLUE (data/sentinel2\2024-08-24_blue.tif): 'numpy.ndarray' object has no attribute 'mask'
+2025-10-02 16:35:27 [ERROR] main - Error retallant NIR (data/sentinel2\2024-08-24_nir.tif): 'numpy.ndarray' object has no attribute 'mask'
+2025-10-02 16:35:27 [WARNING] main - Imatge 2024-08-24 incompleta o corrupta, es salta.
+2025-10-02 16:38:40 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:38:41 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:38:41 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:38:41 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:38:41 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:38:41 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:38:41 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:38:41 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:38:52 [INFO] main - Waterbody guardat a data/sentinel2\2024-08-24_waterbody.tif
+2025-10-02 16:39:16 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:39:17 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:39:17 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:39:17 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:39:17 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:39:17 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:39:17 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:39:17 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:39:40 [INFO] main - Waterbody guardat a data/sentinel2\2024-08-24_waterbody.tif
+2025-10-02 16:43:28 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:43:29 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:43:29 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:43:29 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:43:29 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:43:29 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:43:29 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:43:29 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:43:41 [INFO] main - Waterbody guardat a data/sentinel2\2024-08-24_waterbody.tif
+2025-10-02 16:43:46 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 16:43:47 [INFO] main - S'han trobat 20 imatges
+2025-10-02 16:43:47 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 16:43:47 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 16:43:47 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 16:43:47 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 16:43:47 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 16:43:47 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 16:43:58 [INFO] main - Waterbody guardat a data/sentinel2\2024-08-24_waterbody.tif
+2025-10-02 17:06:04 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-02 17:06:05 [INFO] main - S'han trobat 20 imatges
+2025-10-02 17:06:05 [INFO] main - S'han seleccionat 1 imatges
+2025-10-02 17:06:05 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_red.tif
+2025-10-02 17:06:05 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_green.tif
+2025-10-02 17:06:05 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_blue.tif
+2025-10-02 17:06:05 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2\2024-08-24_nir.tif
+2025-10-02 17:06:05 [INFO] main - Processant imatge del 2024-08-24
+2025-10-02 17:06:57 [INFO] main - Waterbody guardat a data/sentinel2\2024-08-24_waterbody.tif
