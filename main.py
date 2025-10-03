@@ -12,6 +12,11 @@ import matplotlib.colors as mcolors
 from src.utils.save_geotiff import save_geotiff
 import numpy as np
 
+
+
+# 🔹 Nou import per costa
+from src.utils.coastline import estimate_coastline, export_coastline_geojson, export_coastline_csv
+
 # Colormap personalitzat: terra negre, aigua blau
 water_cmap = mcolors.ListedColormap(["black", "blue"])
 
@@ -61,6 +66,10 @@ def main():
         max_workers=config["max_workers"]
     )
 
+    # 🔹 Carpeta per resultats de costa
+    coast_dir = config.get("coastline_out", "outputs")
+    os.makedirs(coast_dir, exist_ok=True)
+
     # 5. Processar cada imatge seleccionada
     for item in selected:
         date = item["properties"]["datetime"][:10]
@@ -89,7 +98,7 @@ def main():
 
         if any(band is None for band in bands.values()):
             logger.warning(f"Imatge {date} incompleta o corrupta, es salta.")
-            continue  
+            continue
 
         red, green, blue, nir = bands["red"], bands["green"], bands["blue"], bands["nir"]
 
@@ -115,9 +124,21 @@ def main():
         show_image(waterbody, title=f"{date} - Waterbody (Aigua en blau, Terra en negre)", cmap=water_cmap)
 
         # Guardar GeoTIFF amb nodata = NaN
-        output_path = os.path.join(out_dir, f"{date}_waterbody.tif")
-        save_geotiff(output_path, waterbody, transform, crs)
-        logger.info(f"Waterbody guardat a {output_path}")
+        water_path = os.path.join(out_dir, f"{date}_waterbody.tif")
+        save_geotiff(water_path, waterbody, transform, crs)
+        logger.info(f"Waterbody guardat a {water_path}")
+
+        # 6. Estimar línia de costa a partir del waterbody
+        # Transformem NaN → 0 i aigua=1
+        water_mask = np.nan_to_num(waterbody, nan=0).astype("uint8")
+        coastline_mask = estimate_coastline(water_mask)
+
+        # 7. Exportar resultats
+        geojson_out = os.path.join(coast_dir, f"{date}_coastline.geojson")
+        csv_out = os.path.join(coast_dir, f"{date}_coastline.csv")
+
+        export_coastline_geojson(coastline_mask, reference_raster=water_path, output_path=geojson_out)
+        export_coastline_csv(coastline_mask, reference_raster=water_path, output_path=csv_out, date=date)
 
 
 if __name__ == "__main__":

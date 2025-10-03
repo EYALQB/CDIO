@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.colors as mcolors
 
 
+nigga = 'black'
+water_cmap = mcolors.ListedColormap([nigga, "blue"])
 
 
 def normalize_band(band, reflectance_scale=10000.0, clip_pct=(2, 98)):
@@ -51,5 +53,3 @@ def show_waterbody(array, title="Waterbody (terra/aigua)"):
     plt.tight_layout()
     plt.show()
 
-nigga = 'black'
-water_cmap = mcolors.ListedColormap([nigga, "blue"])
