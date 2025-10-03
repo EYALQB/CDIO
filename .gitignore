@@ -16,8 +16,6 @@ gi
 logs/
 
 # --- Dades grans (només mantenim l'AOI) ---
-data/*
-!data/aoi_castelldefels.geojson
 
 # --- Fitxers binaris de satèl·lit ---
 *.tif
