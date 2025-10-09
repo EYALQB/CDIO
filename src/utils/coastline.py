@@ -14,60 +14,90 @@ logger = get_logger(__name__)
 
 def estimate_coastline(water_mask: np.ndarray) -> np.ndarray:
     """
-    Detecta la línia de costa a partir d'una màscara binària (1=aigua, 0=terra),
-    utilitzant veïns 8-connectats.
-
-    Parameters
-    ----------
-    water_mask : np.ndarray
-        Màscara binària 2D (1=aigua, 0=terra).
-
-    Returns
-    -------
-    np.ndarray
-        Màscara 2D amb píxels de costa (True = costa).
+    1) Elimina l'aigua connectada a les vores del raster (retall) sense moure la costa.
+    2) (Opcional) Elimina masses petites de soroll.
+    3) Extreu la línia de costa com a frontera d'1 píxel.
     """
-    kernel = np.array([[1, 1, 1],
-                       [1, 0, 1],
-                       [1, 1, 1]], dtype=np.uint8)
+    import numpy as np
+    from scipy.ndimage import label, binary_erosion
 
-    neighbor_sum = convolve(water_mask.astype(np.uint8), kernel, mode="constant", cval=0)
-    coastline = np.logical_and(water_mask == 1, neighbor_sum < kernel.sum())
+    # 0) Assegura màscara binària 0/1
+    water = (water_mask > 0).astype(np.uint8)
 
-    logger.info("Línia de costa estimada (8 veïns)")
+    # 1) ELIMINA AIGUA QUE TOCA LA VORA (robust, sense desplaçar la costa)
+    #    - etiquetem components 8-connectats
+    structure = np.array([[1,1,1],
+                          [1,1,1],
+                          [1,1,1]], dtype=bool)
+    labeled, n = label(water, structure=structure)
+
+    #    - trobem quines etiquetes toquen la vora
+    border_labels = np.unique(np.concatenate([
+        labeled[0, :], labeled[-1, :], labeled[:, 0], labeled[:, -1]
+    ]))
+
+    #    - marquem per conservar només components que NO toquen la vora
+    keep = np.ones(n + 1, dtype=bool)
+    keep[0] = False                 # 0 = fons
+    keep[border_labels] = False     # fora tot el que toca la vora
+    clean_water = keep[labeled]
+
+    # 2) (OPCIONAL) Treu soroll: elimina masses d'aigua petites per mida
+    #    ajusta 'min_size' segons resolució; a Sentinel-2 (10 m), 500 píxels ≈ 5 ha
+    sizes = np.bincount(labeled.ravel())
+    min_size = 500                   # puja/baixa si cal
+    small_labels = np.where(sizes < min_size)[0]
+    clean_water[np.isin(labeled, small_labels)] = False
+
+    # 3) COSTA = aigua neta - aigua erodida (1 píxel de gruix, sense moure la posició)
+    eroded = binary_erosion(clean_water, iterations=1)
+    coastline = np.logical_and(clean_water, np.logical_not(eroded))
+
     return coastline
 
 
 def export_coastline_geojson(coastline_mask: np.ndarray, reference_raster: str, output_path: str):
     """
-    Exporta la línia de costa com a GeoJSON (vectoritzat).
+    Exporta la línia de costa com a GeoJSON, convertint la frontera
+    d'àrea (polígon) a una línia (LineString) per evitar franges dobles.
     """
+    from shapely.geometry import shape
+    import geopandas as gpd
+    from rasterio.features import shapes
+    import os
+
     with rasterio.open(reference_raster) as src:
         transform = src.transform
         crs = src.crs
 
+        # 🔹 Vectoritza el raster (obté geometries dels píxels de costa)
         shapes_gen = shapes(coastline_mask.astype(np.uint8), mask=coastline_mask, transform=transform)
-        geoms = [shape(geom) for geom, val in shapes_gen if val == 1]
 
-        if not geoms:
+        # 🔹 Converteix cada polígon a la seva vora (LineString)
+        line_geoms = [shape(geom).boundary for geom, val in shapes_gen if val == 1]
+
+        if not line_geoms:
             logger.warning("No s'han trobat píxels de costa per exportar.")
             return
 
-        gdf = gpd.GeoDataFrame(geometry=geoms)
+        # 🔹 Crea el GeoDataFrame amb línies, no polígons
+        gdf = gpd.GeoDataFrame(geometry=line_geoms)
 
-        # 🔧 Forcem CRS si no està definit al raster
+        # 🔧 Assegura CRS (si no ve definit al raster)
         if crs is not None:
             gdf.set_crs(crs, inplace=True)
         else:
             gdf.set_crs("EPSG:32631", inplace=True)
 
-        # 🔧 Reprojectem a WGS84 (lon/lat) per compatibilitat amb geojson.io, Google Earth...
+        # 🔧 Reprojecta a WGS84 per compatibilitat amb geojson.io
         gdf = gdf.to_crs(epsg=4326)
 
+        # 🔹 Crea carpetes si no existeixen i exporta
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         gdf.to_file(output_path, driver="GeoJSON")
 
-        logger.info(f"Línia de costa exportada a {output_path} en EPSG:4326")
+        logger.info(f"Línia de costa exportada com LineString a {output_path} en EPSG:4326")
+
 
 
 def export_coastline_csv(coastline_mask: np.ndarray, reference_raster: str, output_path: str, date=None):
