@@ -6,3 +6,5 @@ requests
 pyyaml
 geopandas
 matplotlib.colors
+scipy
+shapely

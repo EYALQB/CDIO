@@ -1,13 +1,17 @@
 """
-Mòdul per descarregar imatges Sentinel-2 des d'un STAC API.
+Mòdul per descarregar imatges Sentinel-2 des d'una STAC API.
+Permet:
+  - Llegir una AOI (.geojson)
+  - Fer una consulta STAC filtrant per dates i núvols
+  - Descarregar bandes en paral·lel (red, green, blue, nir)
 """
 
-import json
 import os
+import json
 import requests
+import geopandas as gpd
 from typing import List, Dict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import geopandas as gpd
 
 from src.utils.logger import get_logger
 logger = get_logger(__name__)
@@ -16,16 +20,21 @@ STAC_API_URL = "https://earth-search.aws.element84.com/v1"
 
 
 # ----------------------------------------------------------------------
-# 1. Carregar AOI
+# 1️⃣ Carregar AOI
 # ----------------------------------------------------------------------
-import geopandas as gpd
-
 def load_aoi(aoi_file: str) -> dict:
     """
-    Carrega un AOI des d'un fitxer .geojson i l'assegura en EPSG:4326 (lat/lon).
+    Carrega un AOI des d'un fitxer GeoJSON i assegura que està en EPSG:4326.
 
-    :param aoi_file: Path al fitxer .geojson
-    :return: AOI en format GeoJSON (dict) amb CRS EPSG:4326
+    Paràmetres
+    ----------
+    aoi_file : str
+        Ruta al fitxer .geojson
+
+    Retorna
+    -------
+    dict
+        AOI en format GeoJSON (llest per usar en una query STAC)
     """
     gdf = gpd.read_file(aoi_file)
 
@@ -33,10 +42,12 @@ def load_aoi(aoi_file: str) -> dict:
     if gdf.crs is None or gdf.crs.to_epsg() != 4326:
         gdf = gdf.to_crs(4326)
 
+    logger.info(f"AOI carregat correctament: {aoi_file}")
     return gdf.__geo_interface__
 
+
 # ----------------------------------------------------------------------
-# 2. Query STAC
+# 2️⃣ Fer consulta a STAC API
 # ----------------------------------------------------------------------
 def query_stac(
     aoi: Dict,
@@ -46,18 +57,29 @@ def query_stac(
     max_cloud: int = 20
 ) -> List[Dict]:
     """
-    Fa una query a la STAC API i retorna una llista d'items disponibles.
+    Fa una consulta a l'API STAC d'Element84 (AWS) i retorna una llista d'items disponibles.
 
-    :param aoi: AOI en format GeoJSON
-    :param start_date: Data inicial (YYYY-MM-DD)
-    :param end_date: Data final (YYYY-MM-DD)
-    :param limit: Nombre màxim d'items a retornar
-    :param max_cloud: Percentatge màxim de núvols permès
+    Paràmetres
+    ----------
+    aoi : dict
+        AOI en format GeoJSON (EPSG:4326).
+    start_date : str
+        Data inicial (YYYY-MM-DD).
+    end_date : str
+        Data final (YYYY-MM-DD).
+    limit : int, opcional
+        Nombre màxim d'imatges a retornar (per defecte 10).
+    max_cloud : int, opcional
+        Percentatge màxim de núvols permès (per defecte 20).
+
+    Retorna
+    -------
+    list[dict]
+        Llista d'items STAC trobats.
     """
     search_url = f"{STAC_API_URL}/search"
 
-    # Calculem el bounding box del AOI en EPSG:4326
-    import geopandas as gpd
+    # Calculem el bounding box de l'AOI
     gdf = gpd.GeoDataFrame.from_features(aoi["features"], crs="EPSG:4326")
     minx, miny, maxx, maxy = gdf.total_bounds
 
@@ -71,42 +93,62 @@ def query_stac(
         }
     }
 
-    logger.debug(f"Query STAC params: {json.dumps(params, indent=2)}")
-
+    logger.info("Consultant API STAC...")
     response = requests.post(search_url, json=params)
     response.raise_for_status()
     data = response.json()
 
     features = data.get("features", [])
     if not features:
-        logger.warning("No s'han trobat imatges amb els criteris donats.")
+        logger.warning("⚠️ No s'han trobat imatges amb els criteris donats.")
+    else:
+        logger.info(f"{len(features)} imatges trobades a la STAC API.")
+
     return features
 
 
 # ----------------------------------------------------------------------
-# 3. Selecció d'items
+# 3️⃣ Selecció d'items
 # ----------------------------------------------------------------------
 def select_items(items: List[Dict], n: int) -> List[Dict]:
     """
-    Selecciona els primers N items de la llista.
+    Selecciona els primers N items de la llista retornada per la STAC API.
+
+    Paràmetres
+    ----------
+    items : list[dict]
+        Llista d'items STAC.
+    n : int
+        Nombre d'items a seleccionar.
+
+    Retorna
+    -------
+    list[dict]
+        Llista reduïda amb els N primers items.
     """
     return items[:n]
 
 
 # ----------------------------------------------------------------------
-# 4. Descarregar un únic asset amb reintents i validació
+# 4️⃣ Descarregar un únic asset amb reintents i validació
 # ----------------------------------------------------------------------
 def download_asset(url: str, out_path: str, retries: int = 3, min_size: int = 10000) -> None:
     """
-    Descarrega un únic asset (fitxer .tif) amb reintents i validació de mida.
+    Descarrega un únic asset (.tif) amb reintents i validació de mida mínima.
 
-    :param url: URL de l'asset
-    :param out_path: Ruta de sortida
-    :param retries: Nombre de reintents si falla la descàrrega
-    :param min_size: Mida mínima del fitxer en bytes per considerar-lo vàlid
+    Paràmetres
+    ----------
+    url : str
+        URL de l'asset.
+    out_path : str
+        Ruta local on es desarà el fitxer.
+    retries : int, opcional
+        Nombre màxim de reintents si falla (per defecte 3).
+    min_size : int, opcional
+        Mida mínima en bytes per considerar el fitxer vàlid (per defecte 10000).
     """
     if os.path.exists(out_path) and os.path.getsize(out_path) >= min_size:
-        logger.info(f"Ja existeix, es salta: {out_path}")
+        logger.info(f"✅ Ja existeix, es salta: {out_path}")
         return
 
     for attempt in range(1, retries + 1):
@@ -127,20 +169,31 @@ def download_asset(url: str, out_path: str, retries: int = 3, min_size: int = 10
         except Exception as e:
             logger.error(f"Error descarregant {url} (intent {attempt}/{retries}): {e}")
             if attempt == retries:
-                logger.error(f"Error permanent: no s'ha pogut descarregar {url}")
+                logger.error(f"❌ Error permanent: no s'ha pogut descarregar {url}")
                 if os.path.exists(out_path):
-                    os.remove(out_path)  # esborrem el fitxer corrupte
+                    os.remove(out_path)  # Esborrem fitxer corrupte
 
 
 # ----------------------------------------------------------------------
-# 5. Descarregar diversos items en paral·lel
+# 5️⃣ Descarregar múltiples imatges en paral·lel
 # ----------------------------------------------------------------------
 def download_images_multithread(items: List[Dict], out_dir: str, max_workers: int = 5) -> None:
     """
-    Descarrega les bandes red, green, blue i nir de múltiples items en paral·lel.
+    Descarrega les bandes (red, green, blue, nir) de múltiples items en paral·lel.
+
+    Paràmetres
+    ----------
+    items : list[dict]
+        Llista d'items STAC a descarregar.
+    out_dir : str
+        Carpeta de sortida.
+    max_workers : int, opcional
+        Nombre màxim de threads en paral·lel (per defecte 5).
     """
     os.makedirs(out_dir, exist_ok=True)
     tasks = []
+
+    logger.info(f"Iniciant descàrrega multithread amb {max_workers} fils...")
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         for item in items:
@@ -148,7 +201,7 @@ def download_images_multithread(items: List[Dict], out_dir: str, max_workers: in
             for band in ["red", "green", "blue", "nir"]:
                 asset = item["assets"].get(band)
                 if asset is None:
-                    logger.warning(f"No existeix asset {band} per {date}")
+                    logger.warning(f"No existeix asset '{band}' per a la data {date}")
                     continue
                 url = asset["href"]
                 out_path = os.path.join(out_dir, f"{date}_{band}.tif")
@@ -159,3 +212,5 @@ def download_images_multithread(items: List[Dict], out_dir: str, max_workers: in
                 future.result()
             except Exception as e:
                 logger.error(f"Error en un task de descàrrega: {e}")
+
+    logger.info("Descàrrega finalitzada correctament ✅")
