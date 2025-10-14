@@ -16,7 +16,7 @@ import geopandas as gpd
 import matplotlib.colors as mcolors
 from rasterio.mask import mask
 
-# 🔹 Imports propis del projecte
+# Imports propis del projecte
 from src.visualization.visualize import show_image, show_rgb
 from src.processing.indices import compute_ndwi, detect_waterbody
 from src.processing.stac_download import load_aoi, query_stac, select_items, download_images_multithread
@@ -95,14 +95,14 @@ def main():
         max_workers=config["max_workers"]
     )
 
-    # 🔹 Carpeta per resultats de línia de costa
+    # Carpeta per resultats de línia de costa
     coast_dir = config.get("coastline_out", "outputs")
     os.makedirs(coast_dir, exist_ok=True)
 
     # 5️⃣ Processar cada imatge seleccionada
     for item in selected:
         date = item["properties"]["datetime"][:10]
-        logger.info(f"🛰️ Processant imatge del {date}")
+        logger.info(f"Processant imatge del {date}")
 
         # Rutes de bandes necessàries
         band_paths = {
@@ -116,7 +116,7 @@ def main():
         bands = {}
         for name, path in band_paths.items():
             if not os.path.exists(path):
-                logger.warning(f"⚠️ Falta la banda {name.upper()} ({path}), es salta aquesta imatge.")
+                logger.warning(f"Falta la banda {name.upper()} ({path}), es salta aquesta imatge.")
                 bands[name] = None
                 continue
 
@@ -128,48 +128,62 @@ def main():
 
         # Si falta alguna banda, saltem la imatge
         if any(band is None for band in bands.values()):
-            logger.warning(f"⚠️ Imatge {date} incompleta o corrupta, es salta.")
+            logger.warning(f"Imatge {date} incompleta o corrupta, es salta.")
             continue
 
         red, green, blue, nir = bands["red"], bands["green"], bands["blue"], bands["nir"]
 
-        # 🔹 Visualització de bandes individuals
+        # Visualització de bandes individuals
         show_image(red,   title=f"{date} - Banda Vermella (RED)", cmap="Reds")
         show_image(green, title=f"{date} - Banda Verda (GREEN)",  cmap="Greens")
         show_image(blue,  title=f"{date} - Banda Blava (BLUE)",   cmap="Blues")
 
-        # 🔹 Composició RGB
+        # Composició RGB
         show_rgb(red, green, blue, title=f"{date} - Composició RGB (True Color)")
 
-        # 6️⃣ Càlcul NDWI (aigua vs terra)
+        # Càlcul NDWI (aigua vs terra)
         ndwi = compute_ndwi(green, nir)
         show_image(ndwi, title=f"{date} - NDWI (Verd vs NIR)", cmap="RdYlBu")
 
-        # 7️⃣ Crear màscara binària d'aigua
+        # Crear màscara binària d'aigua
         waterbody = detect_waterbody(ndwi).astype("float32")
 
-        # Fora AOI = NaN (per transparència)
+        # Fora AOI = NaN (per transparència a la gràfica)
         waterbody[mask_array] = np.nan
         show_image(waterbody, title=f"{date} - Waterbody (Aigua en blau, Terra en negre)", cmap=water_cmap)
 
-        # 8️⃣ Guardar GeoTIFF de màscara
+        # Guardar GeoTIFF de màscara
         water_path = os.path.join(out_dir, f"{date}_waterbody.tif")
         save_geotiff(water_path, waterbody, transform, crs)
-        logger.info(f"💾 Waterbody guardat a {water_path}")
+        logger.info(f"Waterbody guardat a {water_path}")
 
-        # 9️⃣ Estimar línia de costa
+        # --------------------------------------------------------
+        # NOVETAT: retallem segons AOI per evitar línies del retall
+        # --------------------------------------------------------
+        aoi_gdf = gpd.read_file(config["aoi_file"])
+        with rasterio.open(water_path) as src:
+            aoi_mask, _ = mask(src, aoi_gdf.geometry, crop=False)
+            aoi_mask = aoi_mask[0].astype(bool)
+        waterbody = np.where(aoi_mask, waterbody, np.nan)
+        # --------------------------------------------------------
+
+        # Estimar línia de costa
         water_mask = np.nan_to_num(waterbody, nan=0).astype("uint8")
-        coastline_mask = estimate_coastline(water_mask)
-        logger.info(f"✅ Línia de costa estimada correctament per {date}")
+        coastline_mask = estimate_coastline(
+            water_mask,
+            aoi_path=config["aoi_file"],
+            reference_raster=water_path
+        )
+        logger.info(f"Línia de costa estimada correctament per {date}")
 
-        # 🔹 Exportar resultats
+        # Exportar resultats
         geojson_out = os.path.join(coast_dir, f"{date}_coastline.geojson")
         csv_out = os.path.join(coast_dir, f"{date}_coastline.csv")
 
         export_coastline_geojson(coastline_mask, reference_raster=water_path, output_path=geojson_out)
         export_coastline_csv(coastline_mask, reference_raster=water_path, output_path=csv_out, date=date)
 
-        logger.info(f"🌊 Resultats exportats a {coast_dir}")
+        logger.info(f"Resultats exportats a {coast_dir}")
 
 
 # ----------------------------------------------------------------------

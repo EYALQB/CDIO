@@ -100,7 +100,7 @@ def query_stac(
 
     features = data.get("features", [])
     if not features:
-        logger.warning("⚠️ No s'han trobat imatges amb els criteris donats.")
+        logger.warning(" No s'han trobat imatges amb els criteris donats.")
     else:
         logger.info(f"{len(features)} imatges trobades a la STAC API.")
 
@@ -148,7 +148,7 @@ def download_asset(url: str, out_path: str, retries: int = 3, min_size: int = 10
         Mida mínima en bytes per considerar el fitxer vàlid (per defecte 10000).
     """
     if os.path.exists(out_path) and os.path.getsize(out_path) >= min_size:
-        logger.info(f"✅ Ja existeix, es salta: {out_path}")
+        logger.info(f" Ja existeix, es salta: {out_path}")
         return
 
     for attempt in range(1, retries + 1):
@@ -169,7 +169,7 @@ def download_asset(url: str, out_path: str, retries: int = 3, min_size: int = 10
         except Exception as e:
             logger.error(f"Error descarregant {url} (intent {attempt}/{retries}): {e}")
             if attempt == retries:
-                logger.error(f"❌ Error permanent: no s'ha pogut descarregar {url}")
+                logger.error(f"Error permanent: no s'ha pogut descarregar {url}")
                 if os.path.exists(out_path):
                     os.remove(out_path)  # Esborrem fitxer corrupte
 
@@ -213,4 +213,4 @@ def download_images_multithread(items: List[Dict], out_dir: str, max_workers: in
             except Exception as e:
                 logger.error(f"Error en un task de descàrrega: {e}")
 
-    logger.info("Descàrrega finalitzada correctament ✅")
+    logger.info("Descàrrega finalitzada correctament")
