@@ -1,7 +1,7 @@
 aoi_file: "data/aoi_castelldefels.geojson"
 date_start: "2024-01-01"
-date_end: "2024-09-01"
-max_cloud: 30
-n_images: 1
+date_end: "2024-12-01"
+max_cloud: 10
+n_images: 20
 out_dir: "data/sentinel2"
 max_workers: 5

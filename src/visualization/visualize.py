@@ -48,7 +48,7 @@ def normalize_band(band: np.ndarray, reflectance_scale: float = 10000.0, clip_pc
     return (band - low) / (high - low)
 
 
-def show_image(image: np.ndarray, title: str = "Imatge", cmap: str = "gray") -> None:
+def show_image(image: np.ndarray, title: str = "Imatge", cmap: str = "gray",show_now: bool = False) -> None:
     """
     Mostra una sola banda o índex (NDWI, NDVI...) amb barra de color.
 
@@ -67,10 +67,11 @@ def show_image(image: np.ndarray, title: str = "Imatge", cmap: str = "gray") -> 
     plt.colorbar(label="Valors de píxel")
     plt.axis("off")
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    #if show_now:
+        #plt.show()
 
-
-def show_rgb(r: np.ndarray, g: np.ndarray, b: np.ndarray, title: str = "Composició RGB (True Color)") -> None:
+def show_rgb(r: np.ndarray, g: np.ndarray, b: np.ndarray, title: str = "Composició RGB (True Color)",show_now=False) -> None:
     """
     Mostra una composició RGB a partir de bandes R, G i B Sentinel-2.
 
@@ -91,7 +92,8 @@ def show_rgb(r: np.ndarray, g: np.ndarray, b: np.ndarray, title: str = "Composic
     plt.title(title)
     plt.axis("off")
     plt.tight_layout()
-    plt.show()
+    #if show_now:
+     #   plt.show()
 
 
 def show_waterbody(array: np.ndarray, title: str = "Màscara d’aigua (terra/aigua)") -> None:
@@ -110,4 +112,4 @@ def show_waterbody(array: np.ndarray, title: str = "Màscara d’aigua (terra/ai
     plt.title(title)
     plt.axis("off")
     plt.tight_layout()
-    plt.show()
+    #plt.show()
