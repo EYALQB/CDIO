@@ -1,0 +1,5 @@
+Forecasting Jan - Jun 2025
+Model 1 (step): RMSE=3.0735, R2=0.8503, sigma_res=3.0898
+Model 2 (sigmoid): RMSE=3.0948, R2=0.8482, sigma_res=3.1112
+Arxiu CSV amb prediccions: outputs/predictions_2025_H1.csv
+Figura: outputs/figures/forecast_2025H1.png

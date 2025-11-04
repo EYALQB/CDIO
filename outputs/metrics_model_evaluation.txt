@@ -1,0 +1,5 @@
+Model evaluation (monthly series)
+Model 1 (step): RMSE = 3.0735, R2 = 0.8503
+Model 2 (sigmoid): RMSE = 3.0948, R2 = 0.8482
+
+→ El Model 1 tiene menor RMSE (mejor ajuste).

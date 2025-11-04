@@ -1,0 +1,13 @@
+Validation & Discussion (Jan - Jun 2025)
+
+Model 1 (step):
+  RMSE = 4.1535
+  MAE  = 3.5814
+  PICP = 86.36%
+
+Model 2 (sigmoid):
+  RMSE = 4.7574
+  MAE  = 4.2445
+  PICP = 72.73%
+
+→ Model 1 (step) presenta menor RMSE.

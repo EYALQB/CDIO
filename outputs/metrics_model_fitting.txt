@@ -1,0 +1,26 @@
+Model fitting (monthly series)
+Freqències dominants (cicles/mes) i períodes (mesos):
+  f = 0.0105  ->  periodo ≈ 95.00 mesos
+  f = 0.0211  ->  periodo ≈ 47.50 mesos
+  f = 0.0421  ->  periodo ≈ 23.75 mesos
+
+Model base: tendencia + estacional (FFT)
+  Pendiente (a1): 0.131312 unidades/mes
+  RMSE: 3.4779
+  R2: 0.8083
+
+Model 1: tendencia + esgraó + estacional
+  Pendiente (a1): 0.234674 unidades/mes
+  t_step (índice de mes): 57.75
+  RMSE: 3.0735
+  R2: 0.8503
+
+Model 2: tendencia + sigmoide + estacional
+  Pendiente (a1): 8.298095 unidades/mes
+  t0 (centro sigmoide, índice de mes): 56.30
+  w (ancho sigmoide, meses): 10.54
+  RMSE: 3.0948
+  R2: 0.8482
+
+• ¿La tendencia es positiva o negativa? (pendiente base = 0.131312)
+• Periodos dominantes detectados: ~95.0m, ~47.5m, ~23.8m
