@@ -8,24 +8,25 @@ El objetivo del trabajo es analizar la evolución temporal de la línea de costa
 
 ## 🗂️ Estructura del proyecto
 ├── data/
-│ ├── shoreline_distances_castefa_gava_prat_2017_2024.csv.zip # Datos originales (2017–2024)
-│ ├── shoreline_distances_castefa_gava_prat_h1_2025_ref2017.csv # Observaciones reales 2025
+│   ├── shoreline_distances_castefa_gava_prat_2017_2024.csv.zip     # Datos originales (2017–2024)
+│   ├── shoreline_distances_castefa_gava_prat_h1_2025_ref2017.csv   # Observaciones reales 2025
 │
 ├── outputs/
-│ ├── predictions_2025_H1.csv # Predicciones generadas por los modelos
-│ ├── validation_summary.txt # Métricas de validación (RMSE, MAE, PICP)
-│ └── figures/ # Gráficas de resultados y validación
+│   ├── predictions_2025_H1.csv       # Predicciones generadas por los modelos
+│   ├── validation_summary.txt         # Métricas de validación (RMSE, MAE, PICP)
+│   └── figures/                       # Gráficas de resultados y validación
 │
 ├── src/
-│ ├── data_preparation.py # Limpieza, filtrado y agregación de datos
-│ ├── exploratory_analysis.py # Análisis exploratorio y visualización
-│ ├── model_fitting.py # Ajuste de modelos base y mejorados (step y sigmoid)
-│ ├── model_evaluation.py # Evaluación comparativa de modelos
-│ ├── forecasting.py # Generación del pronóstico enero–junio 2025
-│ └── validation_discussion.py # Validación final y discusión de resultados
+│   ├── data_preparation.py           # Limpieza, filtrado y agregación de datos
+│   ├── exploratory_analysis.py       # Análisis exploratorio y visualización
+│   ├── model_fitting.py              # Ajuste de modelos base y mejorados (step y sigmoid)
+│   ├── model_evaluation.py           # Evaluación comparativa de modelos
+│   ├── forecasting.py                # Generación del pronóstico enero–junio 2025
+│   └── validation_discussion.py      # Validación final y discusión de resultados
 │
-├── memoria_proyecto_CDIO_Grupo6.pdf # Informe final (memoria del proyecto)
-└── README.md # Este archivo
+├── memoria_proyecto_CDIO_Grupo6.pdf  # Informe final (memoria del proyecto)
+├── run_pipeline.py                   # Ejecución completa del proyecto
+└── README.md                         # Este archivo
 
 
 ---
