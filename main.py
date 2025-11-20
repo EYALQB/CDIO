@@ -39,7 +39,7 @@ from src.analysis.shoreline_change import (
 logger = get_logger("main")
 water_cmap = mcolors.ListedColormap(["black", "blue"])
 
-coastlines = load_coastlines_as_lines("outputs")  # o la carpeta on tens els geojson
+coastlines = load_coastlines_as_lines("data/outputs")  # o la carpeta on tens els geojson
 date_ref, ref_line, ref_pts = make_reference_samples(coastlines, spacing_m=10, smooth_window=5)
 
 results = compute_transect_intersections(ref_line, ref_pts, coastlines, transect_len=100)

@@ -1,26 +1,5 @@
-# --- Entorns virtuals ---
-venv/
-.venv/
-
-# --- Configuració d'IDE ---
-.idea/
-.vscode/
-
-# --- Fitxers temporals de Python ---
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-gi
-# --- Logs ---
-logs/
-
-# --- Dades grans (només mantenim l'AOI) ---
-
-# --- Fitxers binaris de satèl·lit ---
 *.tif
+*.tif.*
 *.jp2
-
-# --- Altres fitxers temporals ---
-*.log
-*.tmp
+*.jp2.*
+output_stac/

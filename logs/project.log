@@ -1,0 +1,281 @@
+2025-10-03 11:23:12 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-03 11:23:12 [INFO] main - S'han trobat 20 imatges
+2025-10-03 11:23:12 [INFO] main - S'han seleccionat 1 imatges
+2025-10-03 11:23:25 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2/2024-08-24_blue.tif
+2025-10-03 11:23:29 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2/2024-08-24_green.tif
+2025-10-03 11:23:32 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2/2024-08-24_red.tif
+2025-10-03 11:23:32 [INFO] src.stac_download - [OK] Descarregat: data/sentinel2/2024-08-24_nir.tif
+2025-10-03 11:23:32 [INFO] main - Processant imatge del 2024-08-24
+2025-10-03 11:23:33 [INFO] main - Waterbody guardat a data/sentinel2/2024-08-24_waterbody.tif
+2025-10-03 11:24:08 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-03 11:24:09 [INFO] main - S'han trobat 20 imatges
+2025-10-03 11:24:09 [INFO] main - S'han seleccionat 1 imatges
+2025-10-03 11:24:09 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2/2024-08-24_red.tif
+2025-10-03 11:24:09 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2/2024-08-24_green.tif
+2025-10-03 11:24:09 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2/2024-08-24_blue.tif
+2025-10-03 11:24:09 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2/2024-08-24_nir.tif
+2025-10-03 11:24:09 [INFO] main - Processant imatge del 2024-08-24
+2025-10-03 11:24:09 [INFO] main - Waterbody guardat a data/sentinel2/2024-08-24_waterbody.tif
+2025-10-03 11:27:15 [DEBUG] src.stac_download - Query STAC params: {
+  "collections": [
+    "sentinel-2-l2a"
+  ],
+  "bbox": [
+    1.9275868206302107,
+    41.25817729710667,
+    2.0229290460279827,
+    41.268510495963625
+  ],
+  "datetime": "2024-01-01T00:00:00Z/2024-09-01T23:59:59Z",
+  "limit": 20,
+  "query": {
+    "eo:cloud_cover": {
+      "lt": 30
+    }
+  }
+}
+2025-10-03 11:27:16 [INFO] main - S'han trobat 20 imatges
+2025-10-03 11:27:16 [INFO] main - S'han seleccionat 1 imatges
+2025-10-03 11:27:16 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2/2024-08-24_red.tif
+2025-10-03 11:27:16 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2/2024-08-24_green.tif
+2025-10-03 11:27:16 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2/2024-08-24_blue.tif
+2025-10-03 11:27:16 [INFO] src.stac_download - Ja existeix, es salta: data/sentinel2/2024-08-24_nir.tif
+2025-10-03 11:27:16 [INFO] main - Processant imatge del 2024-08-24
+2025-10-03 11:41:05 [INFO] main - Waterbody guardat a data/sentinel2/2024-08-24_waterbody.tif
+2025-10-17 10:49:28 [INFO] src.processing.stac_download - AOI carregat correctament: data/aoi_castelldefels.geojson
+2025-10-17 10:49:28 [INFO] src.processing.stac_download - Consultant API STAC...
+2025-10-17 10:49:28 [INFO] src.processing.stac_download - 20 imatges trobades a la STAC API.
+2025-10-17 10:49:28 [INFO] main - S'han trobat 20 imatges disponibles.
+2025-10-17 10:49:28 [INFO] main - S'han seleccionat 20 imatges per al processament.
+2025-10-17 10:49:28 [INFO] src.processing.stac_download - Iniciant descàrrega multithread amb 5 fils...
+2025-10-17 10:49:31 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-10-21_red.tif
+2025-10-17 10:49:32 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-11-10_nir.tif
+2025-10-17 10:49:32 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-11-10_blue.tif
+2025-10-17 10:49:32 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-11-10_red.tif
+2025-10-17 10:49:32 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-11-10_green.tif
+2025-10-17 10:49:34 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-10-21_green.tif
+2025-10-17 10:49:34 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-10-21_nir.tif
+2025-10-17 10:49:34 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-10-21_blue.tif
+2025-10-17 10:49:42 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-28_red.tif
+2025-10-17 10:49:46 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-10-08_nir.tif
+2025-10-17 10:49:46 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-10-08_blue.tif
+2025-10-17 10:49:52 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-10-08_red.tif
+2025-10-17 10:49:53 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-28_green.tif
+2025-10-17 10:49:54 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-28_nir.tif
+2025-10-17 10:49:55 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-26_red.tif
+2025-10-17 10:49:55 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-10-08_green.tif
+2025-10-17 10:49:56 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-26_green.tif
+2025-10-17 10:49:57 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-28_blue.tif
+2025-10-17 10:49:58 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-26_blue.tif
+2025-10-17 10:49:58 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-26_nir.tif
+2025-10-17 10:49:58 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_red.tif
+2025-10-17 10:49:58 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_green.tif
+2025-10-17 10:49:58 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_blue.tif
+2025-10-17 10:49:58 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_nir.tif
+2025-10-17 10:49:58 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-16_red.tif
+2025-10-17 10:49:58 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-16_green.tif
+2025-10-17 10:50:00 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-16_blue.tif
+2025-10-17 10:50:00 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-09-16_nir.tif
+2025-10-17 10:50:00 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-12_red.tif
+2025-10-17 10:50:01 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-12_green.tif
+2025-10-17 10:50:01 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-12_blue.tif
+2025-10-17 10:50:03 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-12_nir.tif
+2025-10-17 10:50:11 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-09_red.tif
+2025-10-17 10:50:12 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-09_nir.tif
+2025-10-17 10:50:14 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-09_blue.tif
+2025-10-17 10:50:16 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-09_green.tif
+2025-10-17 10:50:18 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-04_red.tif
+2025-10-17 10:50:19 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-02_red.tif
+2025-10-17 10:50:21 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-02_green.tif
+2025-10-17 10:50:22 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-02_blue.tif
+2025-10-17 10:50:24 [INFO] src.processing.stac_download - [OK] Descarregat: data/sentinel2/2024-08-02_nir.tif
+2025-10-17 10:50:45 [INFO] src.processing.stac_download - AOI carregat correctament: data/aoi_castelldefels.geojson
+2025-10-17 10:50:45 [INFO] src.processing.stac_download - Consultant API STAC...
+2025-10-17 10:50:46 [INFO] src.processing.stac_download - 20 imatges trobades a la STAC API.
+2025-10-17 10:50:46 [INFO] main - S'han trobat 20 imatges disponibles.
+2025-10-17 10:50:46 [INFO] main - S'han seleccionat 7 imatges per al processament.
+2025-10-17 10:50:46 [INFO] src.processing.stac_download - Iniciant descàrrega multithread amb 5 fils...
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-11-10_red.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-11-10_green.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-11-10_blue.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-11-10_nir.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-21_green.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-21_red.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-21_blue.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-21_nir.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-08_blue.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-08_green.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-08_red.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-08_nir.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-28_red.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-28_blue.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-26_red.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-28_green.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-26_blue.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-28_nir.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-26_nir.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-26_green.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-16_green.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-16_blue.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_red.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-16_nir.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-16_red.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_green.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_blue.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_nir.tif
+2025-10-17 10:50:46 [INFO] src.processing.stac_download - Descàrrega finalitzada correctament
+2025-10-17 10:50:46 [INFO] main - Processant imatge del 2024-11-10
+2025-10-17 10:50:46 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-11-10_waterbody.tif
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-11-10_coastline.geojson (EPSG:4326).
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-11-10_coastline.csv
+2025-10-17 10:50:46 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:50:46 [INFO] main - Processant imatge del 2024-10-21
+2025-10-17 10:50:46 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-10-21_waterbody.tif
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-10-21_coastline.geojson (EPSG:4326).
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-10-21_coastline.csv
+2025-10-17 10:50:46 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:50:46 [INFO] main - Processant imatge del 2024-10-08
+2025-10-17 10:50:46 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-10-08_waterbody.tif
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-10-08_coastline.geojson (EPSG:4326).
+2025-10-17 10:50:46 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-10-08_coastline.csv
+2025-10-17 10:50:46 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:50:46 [INFO] main - Processant imatge del 2024-09-28
+2025-10-17 10:50:47 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-09-28_waterbody.tif
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-09-28_coastline.geojson (EPSG:4326).
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-09-28_coastline.csv
+2025-10-17 10:50:47 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:50:47 [INFO] main - Processant imatge del 2024-09-26
+2025-10-17 10:50:47 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-09-26_waterbody.tif
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-09-26_coastline.geojson (EPSG:4326).
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-09-26_coastline.csv
+2025-10-17 10:50:47 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:50:47 [INFO] main - Processant imatge del 2024-09-16
+2025-10-17 10:50:47 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-09-16_waterbody.tif
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-09-16_coastline.geojson (EPSG:4326).
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-09-16_coastline.csv
+2025-10-17 10:50:47 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:50:47 [INFO] main - Processant imatge del 2024-08-24
+2025-10-17 10:50:47 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-08-24_waterbody.tif
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-08-24_coastline.geojson (EPSG:4326).
+2025-10-17 10:50:47 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-08-24_coastline.csv
+2025-10-17 10:50:47 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:50:47 [INFO] main - Resultats RMSE exportats a outputs/coastline_rmse.csv
+2025-10-17 10:52:55 [INFO] src.processing.stac_download - AOI carregat correctament: data/aoi_castelldefels.geojson
+2025-10-17 10:52:55 [INFO] src.processing.stac_download - Consultant API STAC...
+2025-10-17 10:52:56 [INFO] src.processing.stac_download - 20 imatges trobades a la STAC API.
+2025-10-17 10:52:56 [INFO] main - S'han trobat 20 imatges disponibles.
+2025-10-17 10:52:56 [INFO] main - S'han seleccionat 7 imatges per al processament.
+2025-10-17 10:52:56 [INFO] src.processing.stac_download - Iniciant descàrrega multithread amb 5 fils...
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-11-10_red.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-11-10_green.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-11-10_blue.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-11-10_nir.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-21_green.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-21_blue.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-21_nir.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-21_red.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-08_red.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-08_blue.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-08_green.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-28_green.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-28_red.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-10-08_nir.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-28_blue.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-28_nir.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-26_red.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-26_green.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-26_blue.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-26_nir.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-16_red.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-16_green.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-16_blue.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-09-16_nir.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_green.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_blue.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_red.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download -  Ja existeix, es salta: data/sentinel2/2024-08-24_nir.tif
+2025-10-17 10:52:56 [INFO] src.processing.stac_download - Descàrrega finalitzada correctament
+2025-10-17 10:52:56 [INFO] main - Processant imatge del 2024-11-10
+2025-10-17 10:52:56 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-11-10_waterbody.tif
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-11-10_coastline.geojson (EPSG:4326).
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-11-10_coastline.csv
+2025-10-17 10:52:56 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:52:56 [INFO] main - Processant imatge del 2024-10-21
+2025-10-17 10:52:56 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-10-21_waterbody.tif
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-10-21_coastline.geojson (EPSG:4326).
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-10-21_coastline.csv
+2025-10-17 10:52:56 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:52:56 [INFO] main - Processant imatge del 2024-10-08
+2025-10-17 10:52:56 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-10-08_waterbody.tif
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-10-08_coastline.geojson (EPSG:4326).
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-10-08_coastline.csv
+2025-10-17 10:52:56 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:52:56 [INFO] main - Processant imatge del 2024-09-28
+2025-10-17 10:52:56 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-09-28_waterbody.tif
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-09-28_coastline.geojson (EPSG:4326).
+2025-10-17 10:52:56 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-09-28_coastline.csv
+2025-10-17 10:52:56 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:52:56 [INFO] main - Processant imatge del 2024-09-26
+2025-10-17 10:52:57 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-09-26_waterbody.tif
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-09-26_coastline.geojson (EPSG:4326).
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-09-26_coastline.csv
+2025-10-17 10:52:57 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:52:57 [INFO] main - Processant imatge del 2024-09-16
+2025-10-17 10:52:57 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-09-16_waterbody.tif
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-09-16_coastline.geojson (EPSG:4326).
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-09-16_coastline.csv
+2025-10-17 10:52:57 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:52:57 [INFO] main - Processant imatge del 2024-08-24
+2025-10-17 10:52:57 [INFO] src.utils.save_geotiff - Fitxer GeoTIFF desat correctament a: data/sentinel2/2024-08-24_waterbody.tif
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Aplicat AOI erosionat 5 píxels (~50.0 m).
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Línia de costa (filtrada i neta) exportada a outputs/2024-08-24_coastline.geojson (EPSG:4326).
+2025-10-17 10:52:57 [INFO] src.processing.coastline - Coordenades de costa exportades a CSV a: outputs/2024-08-24_coastline.csv
+2025-10-17 10:52:57 [INFO] main - Resultats exportats a outputs
+2025-10-17 10:52:57 [INFO] main - Resultats RMSE exportats a outputs/coastline_rmse.csv
