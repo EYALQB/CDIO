@@ -6,6 +6,7 @@ from shapely.geometry import Polygon, mapping
 from pyproj import Transformer
 import matplotlib.pyplot as plt
 import numpy as np
+from datetime import datetime, timedelta
 
 GROUND_TRUTH_LAT = 17.034261
 GROUND_TRUTH_LON = 78.183078
@@ -29,22 +30,26 @@ dates = [
     "2024-10-15T00:00:00Z"
 ]
 
-platforms = ["sentinel-2a", "sentinel-2b", "sentinel-2c"]
-
 def search_s2_l2a(lat, lon, date_str, max_clouds, platform_name=None):
+    date = datetime.fromisoformat(date_str.replace("Z", ""))
+    start = (date - timedelta(days=30)).isoformat() + "Z"
+    end   = (date + timedelta(days=30)).isoformat() + "Z"
+
     body = {
         "collections": ["sentinel-2-l2a"],
+        "datetime": f"{start}/{end}",
         "filter": {
             "op": "and",
             "args": [
                 {"op": "lt", "args":[{"property": "eo:cloud_cover"}, max_clouds]},
-                {"op": "eq", "args":[{"property":"platform"}, platform_name]} if platform_name else {},
-                {"op": "between", "args":[{"property": "datetime"}, date_str, date_str]}
+                {"op": "eq", "args":[{"property":"platform"}, platform_name]} if platform_name else {}
             ]
         },
         "intersects": {"type": "Point", "coordinates": [lon, lat]},
+        "sort": [{"field": "datetime", "direction": "asc"}],
         "limit": 1
     }
+
     r = requests.post(STAC_URL, json=body)
     r.raise_for_status()
     data = r.json()
@@ -95,28 +100,33 @@ def show_geotiff(tif_path, title=""):
             x_ras, y_ras = rasterio.transform.xy(transform, y_pix, x_pix)
             transformer = Transformer.from_crs(crs_src, "EPSG:4326", always_xy=True)
             lon, lat = transformer.transform(x_ras, y_ras)
-            print(f"Clicked pixel: ({x_pix}, {y_pix})")
-            print(f"Coordinates (EPSG:4326): ({lat:.6f}, {lon:.6f})")
-            print(f"Pixel Value: {val}")
-            print(f"Average Value (3x3 window): {avg_val:.2f}")
             clicked_coords.append((lon, lat, val))
             plt.close(fig)
         fig.canvas.mpl_connect('button_press_event', onclick)
         plt.show()
-        if clicked_coords:
-            return clicked_coords[0]
-        return None
+        return clicked_coords[0] if clicked_coords else None
 
-for i, date in enumerate(dates):
-    platform_name = platforms[i] if i < len(platforms) else None
-    print(f"\nProcesando fecha {date} - Plataforma: {platform_name}")
-    item = search_s2_l2a(GROUND_TRUTH_LAT, GROUND_TRUTH_LON, date, MAX_CLOUDS, platform_name)
+diferencias_totales = []
+imagenes_descargadas = 0
+
+# 1) Descargar 3 imágenes iniciales (S2A, S2B, S2C)
+for platform_name in ["sentinel-2a", "sentinel-2b", "sentinel-2c"]:
+    item = None
+    used_date = None
+    for date in dates:
+        item = search_s2_l2a(GROUND_TRUTH_LAT, GROUND_TRUTH_LON, date, MAX_CLOUDS, platform_name)
+        if item is not None:
+            used_date = item["properties"]["datetime"]
+            break
     if item is None:
-        print("No se encontró imagen sin nubes para esta fecha.")
+        print(f"No se encontró imagen válida para {platform_name}")
         continue
-    date_dir = os.path.join(OUTPUT_DIR, f"date_{i+1}")
+
+    print(f"\nProcesando Plataforma {platform_name} - Fecha: {used_date}")
+    date_dir = os.path.join(OUTPUT_DIR, f"{platform_name}_{used_date.replace(':','-')}")
     os.makedirs(date_dir, exist_ok=True)
     local_files = {}
+
     for b in BANDS:
         if b not in item["assets"]:
             continue
@@ -124,17 +134,92 @@ for i, date in enumerate(dates):
         if href.startswith("s3://"):
             href = href.replace("s3://sentinel-s2-l2a/", "https://sentinel-s2-l2a.s3.amazonaws.com/")
         out = os.path.join(date_dir, f"{b}.jp2" if href.endswith(".jp2") else f"{b}.tif")
-        download_asset_http(href, out)
+        if not os.path.exists(out):
+            download_asset_http(href, out)
         local_files[b] = out
+
     for b, path in local_files.items():
         out_path = path.replace(".jp2", "_crop.tif").replace(".tif", "_crop.tif")
-        crop_tiff(path, out_path, GROUND_TRUTH_LAT, GROUND_TRUTH_LON, AREA_SIZE_M)
+        if not os.path.exists(out_path):
+            crop_tiff(path, out_path, GROUND_TRUTH_LAT, GROUND_TRUTH_LON, AREA_SIZE_M)
+
     first_band_crop = list(local_files.values())[0].replace(".jp2", "_crop.tif").replace(".tif", "_crop.tif")
-    clicked = show_geotiff(first_band_crop, title=f"Fecha {date} - Banda para clic")
+    clicked = show_geotiff(first_band_crop, title=f"{platform_name} - {used_date}")
+
     if clicked:
         clicked_lon, clicked_lat, val = clicked
-        delta_lat = abs(clicked_lat - GROUND_TRUTH_LAT)
-        delta_lon = abs(clicked_lon - GROUND_TRUTH_LON)
-        print(f"Ground truth: lat={GROUND_TRUTH_LAT}, lon={GROUND_TRUTH_LON}")
-        print(f"Coordenada clicada: lat={clicked_lat:.6f}, lon={clicked_lon:.6f}")
-        print(f"Diferencia: Δlat={delta_lat:.6f}, Δlon={delta_lon:.6f}")
+        with rasterio.open(first_band_crop) as src:
+            transformer = Transformer.from_crs("EPSG:4326", src.crs, always_xy=True)
+            gt_x, gt_y = transformer.transform(GROUND_TRUTH_LON, GROUND_TRUTH_LAT)
+            click_x, click_y = transformer.transform(clicked_lon, clicked_lat)
+        dx = click_x - gt_x
+        dy = click_y - gt_y
+        diferencias_totales.append({
+            "fecha": used_date,
+            "plataforma": platform_name,
+            "dx": dx,
+            "dy": dy,
+            "dist_total": (dx**2 + dy**2)**0.5
+        })
+        imagenes_descargadas += 1
+
+# 2) Descargar 7 imágenes adicionales (cualquier plataforma)
+for date in dates:
+    if imagenes_descargadas >= 10:
+        break
+    for platform_name in ["sentinel-2a", "sentinel-2b", "sentinel-2c"]:
+        item = search_s2_l2a(GROUND_TRUTH_LAT, GROUND_TRUTH_LON, date, MAX_CLOUDS, platform_name)
+        if item is None:
+            continue
+
+        used_date = item["properties"]["datetime"]
+        date_dir = os.path.join(OUTPUT_DIR, f"{platform_name}_{used_date.replace(':','-')}")
+        if os.path.exists(date_dir):
+            continue  # evitar repetir la misma imagen
+        os.makedirs(date_dir, exist_ok=True)
+
+        local_files = {}
+        for b in BANDS:
+            if b not in item["assets"]:
+                continue
+            href = item["assets"][b]["href"]
+            if href.startswith("s3://"):
+                href = href.replace("s3://sentinel-s2-l2a/", "https://sentinel-s2-l2a.s3.amazonaws.com/")
+            out = os.path.join(date_dir, f"{b}.jp2" if href.endswith(".jp2") else f"{b}.tif")
+            if not os.path.exists(out):
+                download_asset_http(href, out)
+            local_files[b] = out
+
+        for b, path in local_files.items():
+            out_path = path.replace(".jp2", "_crop.tif").replace(".tif", "_crop.tif")
+            if not os.path.exists(out_path):
+                crop_tiff(path, out_path, GROUND_TRUTH_LAT, GROUND_TRUTH_LON, AREA_SIZE_M)
+
+        first_band_crop = list(local_files.values())[0].replace(".jp2", "_crop.tif").replace(".tif", "_crop.tif")
+        clicked = show_geotiff(first_band_crop, title=f"{platform_name} - {used_date}")
+
+        if clicked:
+            clicked_lon, clicked_lat, val = clicked
+            with rasterio.open(first_band_crop) as src:
+                transformer = Transformer.from_crs("EPSG:4326", src.crs, always_xy=True)
+                gt_x, gt_y = transformer.transform(GROUND_TRUTH_LON, GROUND_TRUTH_LAT)
+                click_x, click_y = transformer.transform(clicked_lon, clicked_lat)
+            dx = click_x - gt_x
+            dy = click_y - gt_y
+            diferencias_totales.append({
+                "fecha": used_date,
+                "plataforma": platform_name,
+                "dx": dx,
+                "dy": dy,
+                "dist_total": (dx**2 + dy**2)**0.5
+            })
+            imagenes_descargadas += 1
+            if imagenes_descargadas >= 10:
+                break
+
+print("\n==================== DIFERENCIAS TOTALES ====================")
+for d in diferencias_totales:
+    print(f"Plataforma: {d['plataforma']} - Fecha: {d['fecha']}")
+    print(f"   ΔX = {d['dx']:.2f} m,   ΔY = {d['dy']:.2f} m")
+    print(f"   Distancia total: {d['dist_total']:.2f} m\n")
+print("=============================================================\n")
